@@ -11,6 +11,31 @@ text-decoration: none;
 color: #333;
 }
 
+p{
+    margin: 0;
+}
+
+.search-form{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    width: 400px;
+        
+}
+
+.search-form input[type='text'] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    width: 100%;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .photo-list {
     display: flex;
@@ -29,7 +54,7 @@ color: #333;
 .photo-card {
     position: relative;
     width: 300px;
-    height: 400px;
+    height: 300px;
     margin: 20px;
     border-radius: 10px;
     overflow: hidden;
@@ -45,9 +70,15 @@ color: #333;
 
 .photo-card img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+}
+
+.img-wrapper{
+width: 300px;
+height: 200px;
 }
 
 .info {
@@ -67,7 +98,8 @@ color: #333;
 }
 
 .info-item{
-    text-align: justify;
+    display: flex;
+    justify-content:space-between ;
 }
 
 .count{

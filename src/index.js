@@ -70,19 +70,19 @@ function createMarcup(arr) {
     return arr.map(({ tags, webformatURL, likes, downloads, views, largeImageURL, comments }) => `
     <div class="photo-card">
         <a href="${largeImageURL}">
-            <img src="${webformatURL}" alt="${tags}" loading="lazy" />
+            <div class="img-wrapper"><img src="${webformatURL}" alt="${tags}" loading="lazy" /></div>
             <div class="info">
               <p class="info-item">
-                Likes          <span class="count">${likes}</span>
+                Likes <span class="count">${likes}</span>
               </p>
               <p class="info-item">
-                Views          <span class="count">${views}</span>
+                Views <span class="count">${views}</span>
               </p>
               <p class="info-item">
-                Comments          <span class="count">${comments}</span>
+                Comments <span class="count">${comments}</span>
               </p>
               <p class="info-item">
-                Downloads          <span class="count">${downloads}</span>
+                Downloads <span class="count">${downloads}</span>
               </p>
             </div>
          </a>
