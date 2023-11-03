@@ -13,26 +13,47 @@ const elem = {
     gallery: document.querySelector(".gallery")
 };
 
-const mainUrl = "https://pixabay.com/api/";
-const param = {
-    key: "40437222-3b8e1aead0ae08f3118e12752",
-    q: "",
-    image_type: "photo",
-    orientation: "horizontal",
-    safesearch: "true",
-    per_page: 40,
-    page: 1,
+
+
+// elem.form.addEventListener("submit", handlerSearch);
+
+// async function handlerSearch(evt) {
+
+//     evt.preventDefault();
+//     const searchElem = evt.target.elements.searchQuery.value;
+
+//     const imedges = await fetchImages()
+    
+    
+// }
+
+async function fetchImages(searchElem) {
+    axios.defaults.baseURL = "";
+    const params = {
+        key: "40437222-3b8e1aead0ae08f3118e12752",
+        q:"dogs",
+        image_type: "photo",
+        orientation: "horizontal",
+        safesearch: "true",
+        per_page: 40,
+        page: 1
+    }
+    params.q = searchElem;
+
+    const resp = await axios.get(`https://pixabay.com/api/`, { params }).catch(function (error) {
+    if (error.response) {
+              console.log(error.response.status);
+          } else if (error.request) {
+          console.log(error.request);
+    } else {
+          console.log('Error', error.message);
+    }
+    
+  });
+
+    console.log(resp);
+
+
 }
 
-elem.form.addEventListener("submit", handlerSearch);
-
-function handlerSearch(evt) {
-    evt.preventDefault();
-    const searchElem = evt.target.elements.searchQuery.value;
-    
-
-
-
-    
-}
-
+fetchImages("cats")
