@@ -15,32 +15,44 @@ const elem = {
 
 
 
-// elem.form.addEventListener("submit", handlerSearch);
+elem.form.addEventListener("submit", handlerSearch);
 
-// async function handlerSearch(evt) {
+async function handlerSearch(evt) {
 
-//     evt.preventDefault();
-//     const searchElem = evt.target.elements.searchQuery.value;
+    evt.preventDefault();
+    const searchElem = evt.target.elements.searchQuery.value;
 
-//     const imedges = await fetchImages()
+    const images = await fetchImages(searchElem);
+
+    if (images.length === 0) {
+        Notiflix.Notify.info('Sorry, there are no images matching your search query. Please try again.')
+        return;
+    }
     
-    
-// }
+    console.log(images);
+    elem.gallery.innerHTML = "";
+
+    elem.gallery.insertAdjacentHTML("beforeend", createMarcup(images));
+
+    const lightbox = new SimpleLightbox('.gallery a', { });
+
+}
 
 async function fetchImages(searchElem) {
     axios.defaults.baseURL = "";
     const params = {
         key: "40437222-3b8e1aead0ae08f3118e12752",
-        q:"dogs",
+        q: "dogs",
         image_type: "photo",
         orientation: "horizontal",
         safesearch: "true",
         per_page: 40,
         page: 1
-    }
+    };
+
     params.q = searchElem;
 
-    const resp = await axios.get(`https://pixabay.com/api/`, { params }).catch(function (error) {
+    const resp = await axios.get(`https://pixabay.com/api/`, { params }).then((resp)=> resp.data.hits).catch(function (error) {
     if (error.response) {
               console.log(error.response.status);
           } else if (error.request) {
@@ -51,9 +63,32 @@ async function fetchImages(searchElem) {
     
   });
 
-    console.log(resp);
-
-
+    return resp;
 }
 
-fetchImages("cats")
+function createMarcup(arr) {
+    return arr.map(({ tags, webformatURL, likes, downloads, views, largeImageURL, comments }) => `
+    <div class="photo-card">
+        <a href="${largeImageURL}">
+            <img src="${webformatURL}" alt="${tags}" loading="lazy" />
+            <div class="info">
+              <p class="info-item">
+                Likes          <span class="count">${likes}</span>
+              </p>
+              <p class="info-item">
+                Views          <span class="count">${views}</span>
+              </p>
+              <p class="info-item">
+                Comments          <span class="count">${comments}</span>
+              </p>
+              <p class="info-item">
+                Downloads          <span class="count">${downloads}</span>
+              </p>
+            </div>
+         </a>
+    </div>` )
+        .join("")
+}
+
+
+// fetchImages("cats")
