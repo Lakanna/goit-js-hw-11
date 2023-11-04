@@ -1,5 +1,5 @@
 body{
-    background-color: lightgreen;
+    background-color: rgb(203, 238, 170);
 }
 
 ul,
@@ -40,7 +40,7 @@ p{
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(44, 124, 44);
+    background-color: rgb(77, 148, 77);
 }
 
 .photo-list {
